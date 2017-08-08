@@ -1,0 +1,12 @@
+repositories {
+    maven { url 'http://maven.springframework.org/release' }
+    maven { url 'http://download.java.net/maven/2' }
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.springframework.data:spring-data-mongodb:$mongoSpringDataVersion"
+    compile "org.mongodb:mongo-java-driver:$mongoDriverVersion"
+
+    testCompile "org.springframework:spring-test:$springVersion"
+}

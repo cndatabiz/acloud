@@ -1,0 +1,50 @@
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:1.2.4'
+    }
+}
+
+allprojects{
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven { url 'http://maven.springframework.org/release' }
+        maven { url 'http://download.java.net/maven/2' }
+        mavenCentral()
+    }
+
+    dependencies {
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+        compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+        compile group: 'com.google.guava', name: 'guava', version: '21.0'
+
+        compile ("org.springframework:spring-webmvc:$springVersion"){
+            exclude group:'commons-logging', module: 'commons-logging'
+        }
+        compile "javax.servlet:javax.servlet-api:$servletApiVersion"
+
+        compile "org.springframework.data:spring-data-mongodb:$mongoSpringDataVersion"
+        compile "org.mongodb:mongo-java-driver:$mongoDriverVersion"
+
+        testCompile "org.springframework:spring-test:$springVersion"
+        testCompile "org.mockito:mockito-core:$mockitoVersion"
+        testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
+        testCompile "junit:junit:$junitVersion"
+    }
+}
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
+gretty {
+    port = 8080
+    contextPath = 'acloud'
+    servletContainer = 'tomcat7' //jetty9 or tomcat7 or tomcat8
+}

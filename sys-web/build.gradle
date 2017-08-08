@@ -1,0 +1,18 @@
+repositories {
+    maven { url 'http://maven.springframework.org/release' }
+    maven { url 'http://download.java.net/maven/2' }
+    mavenCentral()
+}
+
+dependencies{
+    compile project(":sys-lib")
+
+    compile ("org.springframework:spring-webmvc:$springVersion"){
+        exclude group:'commons-logging', module: 'commons-logging'
+    }
+
+    compile "javax.servlet:javax.servlet-api:$servletApiVersion"
+
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
+}
